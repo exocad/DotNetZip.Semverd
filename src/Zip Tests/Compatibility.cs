@@ -2605,6 +2605,14 @@ namespace Ionic.Zip.Tests
             Assert.IsTrue(File.Exists(@"extract\Temp\evil.txt"));
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(IOException))]
+        public void Extract_ZipWithAbsolutePathsOutside()
+        {
+            _Extract_ZipFile("absolute-path-traversal.zip");
+            Assert.IsFalse(File.Exists(@"C:\Windows\Temp\foo"));
+        }
+
         private void _Extract_ZipFile(string fileName)
         {
             TestContext.WriteLine("Current Dir: {0}", CurrentDir);
